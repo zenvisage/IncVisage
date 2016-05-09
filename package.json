@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "java": "~0.2.9",
+    "socket.io": "~0.9.16",
+    "express": "~3.4.6",
+    "connect-assets": "~2.5.3",
+    "connect-assets-hbs-helpers": "0.0.7",
+    "express-hbs": "~0.5.2",
+    "less": "~1.5.1",
+    "socket.io-client": "~0.9.16",
+    "minimist": "0.0.8"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.7.2"
+  }
+}

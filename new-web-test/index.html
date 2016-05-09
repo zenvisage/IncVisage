@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+<style>
+</style>
+<link rel="stylesheet" href="dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="dist/css/main.css">
+<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.css" rel="stylesheet"/>
+
+</head>
+
+<body>
+<!-- background color E5E7E5 -->
+<script>
+
+function btntest1_onclick() 
+{
+
+	var info = 1;
+	$.get('/setViz',JSON.stringify(info))
+      .fail(function() {
+        console.log("Failed")
+        alert('Request failed: /LoadData');
+      });
+    window.location.href = "trendline.html";
+}
+
+function btntest2_onclick() 
+{
+	var info = 2;
+	$.get('/setViz',JSON.stringify(info))
+      .fail(function() {
+        console.log("Failed")
+        alert('Request failed: /LoadData');
+      });
+    window.location.href = "heatmap.html";
+}
+
+</script>
+
+
+<div class="everythinig">
+  <div class="title" style="background-color:#28313D;">
+  <h2 style="text-align:center"> VizInc</h2>
+</div>
+
+<div class="half" style="float:left" onclick="btntest1_onclick()">
+  <div class="background-line">
+  <div class="transbox">
+  <span><p>TREND LINE VISUALIZER</p></span>
+  </div>
+  </div>
+</div>
+
+<div class="half" style="float:right" onclick="btntest2_onclick()">
+  <div class="background-heatmap">
+  <div class="transbox">
+  <p>HEATMAP VISUALIZER</p>
+  </div>
+  </div>
+</div>
+
+
+  
+
+
+</div>
+
+<script src="js/jquery-2.1.1.min.js"></script>
+<script src="assets/magicsuggest/magicsuggest-min.js"></script>
+<script src="js/d3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.js"></script>
+</body>

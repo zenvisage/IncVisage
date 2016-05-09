@@ -1,0 +1,6 @@
+N,Q,A,C,T
+1,"Find the Day of a given Month in the year 2013, that had the highest Weather Delay.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 2,Month,N
+2,Which Week of Year contains the Day of Week with the highest NAS Delay for DFW (origin) airport?,7,,B
+3,"Find the Day of a given Month that had the highest Aircraft Delay in DEN (destination) airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,Month,N
+4,"For the Week of Year Vs. Year heatmap, which Week of Year had the highest Departure Delay?",52,Week,N
+5,"Over the Years, which of the Day of Week had the highest Arrival Delay in the city of Charlotte- NC (origin)?  <br/> <format>( XXX,e.g., MON)</format>",FRI,,B

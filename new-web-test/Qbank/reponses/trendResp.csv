@@ -1,0 +1,173 @@
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,JUL 18,23,39.039,1,1,93.71584699453553
+2,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,JUL,149,129.657,1,1,59.2896174863388
+3,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,DEC 23,106,65.238,1,1,71.03825136612022
+4,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,JUL 23,28,28.406,1,1,92.34972677595628
+5,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,C,43,53.931,1,1,88.25136612021858
+6,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,A,47,36.835,1,1,87.1584699453552
+7,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,B,79,44.364,1,1,78.41530054644808
+
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,dec 25,23,15.411,0,0,0
+2,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,a,39,21.168,1,1,89.34426229508196
+3,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,dec 21,30,22.865,0,0.9988207547169812,91.6950201051655
+4,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,a,43,24.22,0,0,0
+5,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,jul 4,60,43.561,0,0,0
+6,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,jul 23,30,19.376,1,1,91.80327868852459
+7,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,c,26,24.338,1,1,92.89617486338798
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,A,42,35.415,1,1,88.52459016393442
+2,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,JUL,55,45.423,1,1,84.97267759562843
+3,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,b,35,29.753,1,1,90.43715846994536
+4,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,c,24,21.152,1,1,54.71698113207547
+5,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,dec 22,68,50.074,0,0.9994103773584906,81.37275750077328
+6,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,jul 18,84,49.888,1,1,77.04918032786885
+7,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,jul 23,80,39.992,1,1,78.14207650273224
+
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,JUL 13,11,20.599,0,0.9790794979079498,94.96536113588037
+2,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,C,31,37.031,0,0,0
+3,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,DEC 23,82,53.997,1,1,77.59562841530054
+4,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,JUL 18,62,50.321,1,1,83.06010928961749
+5,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,JUL,40,41.063,1,1,89.07103825136612
+6,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,A,52,31.649,1,1,85.79234972677595
+7,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,C,27,34.498,1,1,49.056603773584904
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,c,94,62.25,0,0,0
+2,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,dec 23,93,70.366,1,1,74.59016393442623
+3,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,b,86,158.348,0,0,0
+4,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,jul,60,39.649,1,1,83.60655737704919
+5,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,jul 23,49,26.435,1,1,86.6120218579235
+6,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,b,47,41.807,1,1,87.1584699453552
+7,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,jul 13,159,67.102,0,0.9894291754756871,55.95951894083804
+
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,a,39,34.293,1,1,89.34426229508196
+2,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,b,8,25.563,1,1,97.81420765027322
+3,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,dec 23,94,81.651,1,1,74.31693989071039
+4,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,jul,181,107.275,1,1,50.54644808743169
+5,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,jul 23,135,47.991,1,1,63.114754098360656
+6,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,jul 18,105,41.134,1,1,71.31147540983606
+7,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,c,32,37.415,1,1,39.62264150943396
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,b,61,45.972,1,1,83.28767123287672
+2,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,c,22,68.78,1,1,58.490566037735846
+3,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,DEC 23,72,37.757,1,1,80.32786885245902
+4,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,JUL,101,98.579,1,1,72.40437158469946
+5,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,JUL 23,117,51.928,1,1,68.0327868852459
+6,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,JUL 18,158,79.771,1,1,56.830601092896174
+7,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,a,128,113.138,1,1,65.02732240437157
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,Jul 18,11,35.559,1,1,96.99453551912568
+2,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,Dec 21,35,40.638,0,0.9988207547169812,90.33051087741003
+3,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,C,34,35.063,0,0,0
+4,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,B,45,25.667,0,0,0
+5,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,C,53,57.351,1,1,85.51912568306011
+6,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,JUL 23,38,25.086,1,1,89.61748633879782
+7,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,OCT,22,32.701,0,0,0
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,MAR 1,10,46.216,0,0.06765327695560253,6.5804826765558735
+2,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,C,19,44.714,0,0,0
+3,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,SEP,13,131.021,0,0,0
+4,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,JUL 23,27,40.201,1,1,92.62295081967213
+5,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,B,34,71.501,0,0,0
+6,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,DEC 22,65,130.869,0,0.9994103773584906,82.19194633467369
+7,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,A,6,52.799,0,0,0
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,Dec 22,32,63.184,0,0.9994103773584906,91.20302350757811
+2,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,c,29,81.194,1,1,45.28301886792453
+3,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,jul 23,94,55.94,1,1,74.31693989071039
+4,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,jul,99,66.827,1,1,72.95081967213115
+5,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,a,93,58.476,1,1,74.59016393442623
+6,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,Jul 18,86,51.058,1,1,76.50273224043715
+7,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,c,92,56.059,0,0,0
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,JUL 18,72,25.624,1,1,80.32786885245902
+2,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,C,42,27.325,1,1,20.754716981132077
+3,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,DEC 23,164,51.349,1,1,55.19125683060109
+4,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,JUL,105,43.16,1,1,71.31147540983606
+5,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,B,154,79.962,1,1,57.92349726775956
+6,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,JUL 23,113,36.721,1,1,69.12568306010928
+7,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,A,123,33.374,1,1,66.39344262295081
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,DEC 23,203,114.693,1,1,44.53551912568306
+2,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,A,84,111.031,1,1,77.04918032786885
+3,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,B,62,153.717,1,1,83.06010928961749
+4,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,JUL 23,58,42.751,1,1,84.15300546448088
+5,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,JUL 18,117,61.406,1,1,68.0327868852459
+6,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,B,32,158.519,0,0,0
+7,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,JUL,58,60.101,1,1,84.15300546448088
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,DEC 21,16,84.237,0,0,0
+2,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,A,84,49.079,1,1,77.04918032786885
+3,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,C,64,75.618,1,1,82.5136612021858
+4,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,NOV,26,36.557,0,0,0
+5,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,DEC 21,51,54.868,0,0.9988207547169812,85.96408134859263
+6,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,B,44,66.622,1,1,87.97814207650273
+7,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,DEC 22,40,45.762,0,0,0
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,JuL 27,16,20.506,0,0.9809725158562368,93.8088471447221
+2,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,JUL,46,62.192,1,1,87.43169398907104
+3,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,C,51,98.57,0,0,0
+4,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,JUN 13,109,55.6,0,0.6610878661087867,46.42065070763884
+5,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,DEC 23,101,51.254,1,1,72.40437158469946
+6,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,C,37,74.598,1,1,89.89071038251366
+7,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,B,49,65.064,1,1,86.6120218579235
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,C,24,27.578,1,1,93.44262295081968
+2,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,JUL 18,42,26.728,1,1,88.52459016393442
+3,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,Nov,26,25.306,0,0,0
+4,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,A,60,20.858,1,1,83.60655737704919
+5,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,Dec 22,71,60.87,0,0.9994103773584906,80.55356866687288
+6,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,JUL 23,58,26.28,1,1,84.15300546448088
+7,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,B,43,19.828,1,1,88.25136612021858
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,B,13,27.25,1,1,96.44808743169399
+2,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,JUL 23,50,33.682,1,1,86.33879781420765
+3,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,C,32,31.444,1,1,39.62264150943396
+4,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,A,29,16.134,1,1,92.07650273224044
+5,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,JUL,54,48.472,1,1,85.24590163934425
+6,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,JUL 18,41,23.376,1,1,88.79781420765028
+7,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,DEC 23,237,123.238,1,1,35.24590163934426
+
+
+No,Q,Ans,User Ans,Itr,Time (sec), Correct, Accuracy, Points
+1,"Choose the correct option. Overall, the Arrival Delay is the worst in- <br/>A) First half of January <br/>B) Mid July <br/>C) Last half of December <br/> <format>(select A, B, or C)</format>",C,C,10,70.156,1,1,81.13207547169812
+2,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,JUL 13,11,53.199,0,0.9790794979079498,94.96536113588037
+3,"Find the busiest day of the year in the ORD (origin) airport.  The higher the Taxi Out time, the busier the airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 18,JUL 18,16,99.326,1,1,95.62841530054644
+4,"Find the Month that has the day (of month) with the shortest Arrival Delay.   <br/> <format>(XXX, e.g., FEB)</format>",JUL,NOV,40,155.808,0,0,0
+5,"Which Day of the year has the highest Departure Delay?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,DEC 22,47,93.068,0,0.9994103773584906,87.10707933807609
+6,"Choose the correct option based on the day of the year. Anyone traveling from LGA airport (origin) during ____________ has to suffer from the highest Departure Delay. <br/>A) Early January <br/>B) Summer <br/>C) Late December  <br/> <format>(select A, B, or C)</format>",B,B,5,43.312,1,1,90.56603773584906
+7,"Choose the correct option based on the day of the year. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) JAN 01- JAN 10 <br/>B) JUN 10- JUN 20 <br/>C) DEC 01- DEC 10 <br/> <format>(select A, B, or C)</format>",A,A,20,58.721,1,1,94.53551912568307
+
+

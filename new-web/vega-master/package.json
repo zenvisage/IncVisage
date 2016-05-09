@@ -1,0 +1,53 @@
+{
+  "name": "vega",
+  "version": "1.5.0",
+  "description": "Vega Runtime",
+  "keywords": [
+    "vega",
+    "visualization",
+    "grammar",
+    "d3"
+  ],
+  "homepage": "http://trifacta.github.io/vega/",
+  "author": {
+    "name": "Jeffrey Heer",
+    "url": "http://trifacta.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/trifacta/vega.git"
+  },
+  "main": "index.js",
+  "browser": {
+    "buffer": false,
+    "canvas": false,
+    "fs": false,
+    "http": false,
+    "request": false
+  },
+  "bin": {
+    "vg2png": "./bin/vg2png",
+    "vg2svg": "./bin/vg2svg"
+  },
+  "dependencies": {
+    "d3": "^3.5.5",
+    "d3-geo-projection": "^0.2.13",
+    "canvas": "~1.1.6",
+    "topojson": "^1.6.18",
+    "yargs": "^2.3.0",
+    "request": "2.53.0"
+  },
+  "devDependencies": {
+    "uglify-js": "^2.4.16",
+    "vows": "^0.8.1"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/vows; echo"
+  },
+  "licenses": [
+    {
+      "type": "BSD",
+      "url": "https://github.com/trifacta/vega/blob/master/LICENSE"
+    }
+  ]
+}

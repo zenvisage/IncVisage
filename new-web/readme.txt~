@@ -1,0 +1,7 @@
+new-web file structure and details.
+
+Main file: Index.html. This is where all the static elements of the webpage are created. In addition, the dynamic elements are initialized in index.html, which are then populated through javscript. 
+
+vega-dynamic.html: a test page for using the visualization toolkit, vega. 
+schema2.json: A sample schema of the backend DB (not used currently). 
+Other files in main directory are just for libraries to use. 

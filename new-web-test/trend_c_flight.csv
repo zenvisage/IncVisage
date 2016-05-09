@@ -1,0 +1,6 @@
+N,Q,A,C,T
+1,"In the state of NY (destination), which day of the year suffers most from the delay caused by National Aviation System (NAS delay)?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 23,Month,N
+2,"In which day of the year, aircrafts suffer from the highest Taxi In time at ATL (destination) airport?   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUL 31,Month,N
+3,"Flight carriers are responsible for higher Carrier Delay. On which day of the year will you avoid flying on AA (carrier) aircrafts.   <br/> <format>(MMM DD, e.g., FEB 29)</format>",JUN 17,Month,N
+4,Choose the correct option. UA (carrier) aircrafts have the worst Aircraft Delay statistics on- <br/>A) Early January <br/>B) Mid June <br/>C) Late December,A,,B
+5,"The day of the year that has the shortest Arrival Delay in the Year 2010 belongs to the which month?   <br/> <format>(XXX, e.g., FEB)</format>",NOV,,B
