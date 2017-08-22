@@ -16,8 +16,8 @@
 function btntest1_onclick() 
 {
 
-	var info = 1;
-	$.get('/setViz',JSON.stringify(info))
+  var info = 1;
+  $.get('/setViz',JSON.stringify(info))
       .fail(function() {
         console.log("Failed")
         alert('Request failed: /LoadData');
@@ -27,8 +27,8 @@ function btntest1_onclick()
 
 function btntest2_onclick() 
 {
-	var info = 2;
-	$.get('/setViz',JSON.stringify(info))
+  var info = 2;
+  $.get('/setViz',JSON.stringify(info))
       .fail(function() {
         console.log("Failed")
         alert('Request failed: /LoadData');
@@ -40,7 +40,7 @@ function btntest2_onclick()
 <div class="everythinig">
 
   <div class="left-bar">
-    <div  class="title"><h2><a href="http://128.174.244.56:8080/">VizInc</a></h2></div>
+    <div  class="title"><h2><a href="http://128.174.244.56:8080/">IncVisage</a></h2></div>
 
     <div class="toolkit" style="margin:20px; font-size:10pt">
       <div id="dataset" class="row">
@@ -50,7 +50,7 @@ function btntest2_onclick()
         <div class="col-xs-9">
           <select class="selectpicker" id="dataset">
           <option disabled selected> -- select a dataset -- </option>
-          <option>Sensor</option>
+          <!--<option>Sensor</option>-->
           <option>Flight</option>
           <!--    <option>NYC Taxi-2011</option>-->
           <!-- <option>NYC Taxi-2012</option>
@@ -81,7 +81,7 @@ function btntest2_onclick()
       </div>
 
     </div>  <!-- toolkit-->
-    <hr noshade>
+<!--    <hr noshade>
 
 
   <div class="row" id="addFilters">
@@ -103,7 +103,6 @@ function btntest2_onclick()
         </select>
       </div>
       <div class="col-xs-4">
-      <!-- <input type="text" class="form-control" id="filterValue" placeholder="Enter Filter">-->
         <select class="selectpicker" id="filterValue" data-width="100px">
           <option disabled selected> Value </option>
         </select>
@@ -111,7 +110,7 @@ function btntest2_onclick()
     </div>  
   </div>
 </div>
-
+-->
   <div class="row">
   <button type="button" class="btn btn-default btn-right" onclick="loadAxesColumns()"  id="doneBtn" disabled>Visualize</button>
   </div>
@@ -164,7 +163,7 @@ function btntest2_onclick()
     </div>
   </div>
 
-  <div>
+  <!--<div>
     <div id="question" class="col-xs-2" style="display:none; padding-right:0">
       <h3 style="color:#D94F88">Score: <span id="score">0</span></h3>
       <br>
@@ -175,10 +174,10 @@ function btntest2_onclick()
       <button type="button" class="btn btn-default btn-right" onclick="next()" id="nextBtn" style="display:none">Next</button>
     </div>
 
-    <div class="visualization"></div>
+    
+  </div>-->
+  <div class="visualization"></div>
 
-  </div>
-  
 
   <div id="player" >
     <div class="block">
@@ -208,11 +207,11 @@ function btntest2_onclick()
 <script src="js/jquery-2.1.1.min.js"></script>
 <script src="assets/magicsuggest/magicsuggest-min.js"></script>
 <script src="js/d3.min.js"></script>
-<script src="js/histogram/asymptotic.js"></script>
-<script src="js/histogram/player.js"></script>
-<script src="js/histogram/toolkit.js"></script>
+<script src="js/trendline/trendline.js"></script>
+<script src="js/trendline/player.js"></script>
+<script src="js/trendline/toolkit.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.js"></script>
-<script type="text/javascript" src="//canvg.googlecode.com/svn/trunk/rgbcolor.js"></script> 
-<script type="text/javascript" src="//canvg.googlecode.com/svn/trunk/canvg.js"></script>
+<script type="text/javascript" href="//canvg.googlecode.com/svn/trunk/rgbcolor.js"></script>
+<script type="text/javascript" href="//canvg.googlecode.com/svn/trunk/canvg.js"></script> 
 </body>

@@ -1,3 +1,4 @@
+var vizType = 1;
 var iteration = 1;
 var maxIteration = 1;
 var snapshotW = 350, snapshotH = 220;
@@ -15,6 +16,7 @@ var ychange=0;
 var xchange=0;
 var xList;
 var yList;
+var measList;
 var predList;
 var margin = {top: 30, right: 40, bottom: 30, left: 40},
     widthWin = 800 - margin.left - margin.right,
@@ -168,7 +170,7 @@ function drawAxes(x, y, gridItemHeight, gridItemWidth, viz){
 	
 }
 
-function render(itr, width, height, viz, segmentArr_,estimateArr_){
+function render(itr, width, height, viz, segmentArr_){
 
 
     if(itr >= iterationLow)
@@ -187,7 +189,7 @@ function render(itr, width, height, viz, segmentArr_,estimateArr_){
      
        
 		
-	viz.selectAll("rect").remove();
+	//viz.selectAll("rect").remove();
 
 		var colors = d3.scale.linear()
     .domain([avgMin[itr],avgMax[itr]])
@@ -202,8 +204,8 @@ function render(itr, width, height, viz, segmentArr_,estimateArr_){
 		var legendElementWidth = 14;//((widthWin + margin.left + margin.right)/2)/colors.length;
     var legendElementHeight = 28;
 
-    
-      for(var i=0;i<segmentArr_.length;i++)
+    //console.log("render",segmentArr_);
+    for(var i=0;i<segmentArr_.length;i++)
 	  {
 		  xPos = (segmentArr_[i].xb-xMin)*gridItemWidth;
 		  yPos = (yMax-segmentArr_[i].ye)*gridItemHeight;//segmentArr_[i].yb-yMin
@@ -268,6 +270,7 @@ function render(itr, width, height, viz, segmentArr_,estimateArr_){
 	  //console.log("label print");
 	  if (itr == iterationLow)
       {
+        console.log("in itr: ", itr,iterationLow);
 		  var x = d3.scale.linear().range([0, width])
                                 .domain([xMin, xMax]);
           var y = d3.scale.linear().range([height, 0]).domain([yMin,yMax]);
@@ -333,7 +336,7 @@ function render(itr, width, height, viz, segmentArr_,estimateArr_){
             .attr("y", gridItemHeight+20);*/
 
 
-  for(var i=0;i<validCells.length;i++)
+        for(var i=0;i<validCells.length;i++)
        {
           xPos = (validCells[i].x-xMin)*gridItemWidth;
           yPos = (yMax-validCells[i].y)*gridItemHeight;//segmentArr_[i].yb-yMin
@@ -353,6 +356,8 @@ function render(itr, width, height, viz, segmentArr_,estimateArr_){
 
 
        }
+
+
 		 
 	 }
 
@@ -428,14 +433,14 @@ function renderSubmit(){
 	  select3.appendChild(opt);
 	  $("#measType").selectpicker('refresh');
 	  
-	  	$("#filterattr").empty();
+	  	/*$("#filterattr").empty();
 	var select3 = document.getElementById('filterattr');
     opt = document.createElement('option');
     opt.text = "Attribute";
     opt.value = "----";
     select3.appendChild(opt); 
 
-    $("#filterattr").selectpicker('refresh');
+    $("#filterattr").selectpicker('refresh');*/
 	
   }
 
@@ -463,7 +468,7 @@ function processMetaData(data){
 	predList.sort();
   xList = xColumns.split(",");
   yList = yColumns.split(",");
-  var measList = measColumns.split(",");
+  measList = measColumns.split(",");
 
   var select1 = document.getElementById('xAxis');
   //select1.parentNode.removeChild("temp1");
@@ -533,7 +538,7 @@ for (var i = 0; i<measList.length; i++){
  document.getElementById("measType").options[0].disabled = true;
 $("#measType").selectpicker('refresh');
 
-var select4 = document.getElementById('filterattr');
+/*var select4 = document.getElementById('filterattr');
 $("#filterattr").empty();
  opt = document.createElement('option');
     opt.text = "Attribute";
@@ -552,7 +557,7 @@ for (var i = 0; i<predList.length; i++){
 
  $("#filterattr").selectpicker('refresh');
  document.getElementById("filterattr").options[0].disabled = true;
-$("#filterattr").selectpicker('refresh');
+$("#filterattr").selectpicker('refresh');*/
 
 
   
@@ -570,6 +575,8 @@ function loadAxesColumns(){
       });
   
 }
+
+
 
 function processAxesData(data){
 

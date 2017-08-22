@@ -296,7 +296,7 @@ $('#back').click(function() {
 		
 		//iteration--;
 		seekbar.value = iteration;
-		render(iteration, widthWin, heightWin, graph,segmentChain[iteration],estimateArr);
+		render(iteration, widthWin, heightWin, graph,segmentChain[iteration]);
 		return;
 
 	}
@@ -364,7 +364,7 @@ function play(){
 
 	if(resetFlag==false)
 	{
-		document.getElementById('submitBtn').disabled = false;
+		//document.getElementById('submitBtn').disabled = false;
 		iteration++;
 		
 		if(iteration <= 1 && QA == true)
@@ -374,71 +374,71 @@ function play(){
 		}
 		
 		if(iteration<=maxIteration  && playFlag==true)
-			{
-				console.log("iteration:",iteration,"Max:",maxIteration);
+		{
+			console.log("iteration:",iteration,"Max:",maxIteration);
+	
+			$.get('/getiterativedata1', JSON.stringify(iteration), genCharts,'json')
+			.fail(function() {
+				
+				console.log("Failed")
+				alert('Request failed: /getiterativedata1');
 		
-				$.get('/getiterativedata1', JSON.stringify(iteration), genCharts,'json')
-				.fail(function() {
-					
-					console.log("Failed")
-					alert('Request failed: /getiterativedata1');
+			});
+			  
+		
 			
-				});
-				  
-			
-				
-		  
 	  
-			}
-			/*else if(playIter > iterationLow && playIter < iteration)
-			{
-				
-				simplayFlag = true;
-				playIter--;
-				simulatePlay();
-			}*/
-			else
-			{
-				//console.log(segmentArr);
-				if(simplayFlag==false)
-			  {
-					backFlag = true;
-					//forwardFlag = false;
-					if(pauseFlag==false && simplayFlag==false)
-					{
-						backwardIter = maxIteration;
-						playIter = maxIteration;
-						pauseIter = maxIteration;
-					}
-					
-
-					
-
-					
-					if(playFlag==true)
-					{
-						if(document.getElementById("pause")!=null)
-						{
-							
-							document.getElementById("pause").style.opacity="0.1";
-						}
-						else if(document.getElementById("play")!=null)
-						{
-							
-							document.getElementById("play").style.opacity="0.1";
-						}
-
-						document.getElementById("forward").style.opacity="0.1";
-						document.getElementById("back").style.opacity="1";
-
-					}
-
-
-
-					playFlag = false;
-					//simplayFlag=true;
+  
+		}
+		/*else if(playIter > iterationLow && playIter < iteration)
+		{
+			
+			simplayFlag = true;
+			playIter--;
+			simulatePlay();
+		}*/
+		else
+		{
+			//console.log(segmentArr);
+			if(simplayFlag==false)
+		    {
+				backFlag = true;
+				//forwardFlag = false;
+				if(pauseFlag==false && simplayFlag==false)
+				{
+					backwardIter = maxIteration;
+					playIter = maxIteration;
+					pauseIter = maxIteration;
 				}
+				
+
+				
+
+				
+				if(playFlag==true)
+				{
+					if(document.getElementById("pause")!=null)
+					{
+						
+						document.getElementById("pause").style.opacity="0.1";
+					}
+					else if(document.getElementById("play")!=null)
+					{
+						
+						document.getElementById("play").style.opacity="0.1";
+					}
+
+					document.getElementById("forward").style.opacity="0.1";
+					document.getElementById("back").style.opacity="1";
+
+				}
+
+
+
+				playFlag = false;
+				//simplayFlag=true;
 			}
+		}
 	}
 	else
 		reset();
@@ -520,7 +520,8 @@ function genSimCharts()
 			}
 
 				if(simplayFlag==true && pauseFlag==false)
-					setTimeout(simulatePlay,getDelay(playIter));
+					//setTimeout(simulatePlay,getDelay(playIter));
+					simulatePlay();
 	}
 	else
 		reset();
@@ -535,15 +536,16 @@ function genCharts(output)
 	{
 		var segment = output.sl;
 		var estimate = output.gl;
-
 		if(iteration==1)
 		{
 			validCells = output.validCells;
-
-			xMax = output.xMax;
-			xMin = output.xMin;
-			yMax = output.yMax;
-			yMin = output.yMin;
+			//console.log("validCells",validCells);
+			var axis = output.y;
+			//console.log(axis);
+			xMax = axis.xMax;
+			xMin = axis.xMin;
+			yMax = axis.yMax;
+			yMin = axis.yMin;
 
 			  xTickList.length = 0;
 			  yTickList.length = 0;
@@ -578,26 +580,16 @@ function genCharts(output)
 				  
 			  }
 
-			console.log(output);
+			//console.log(output);
 		}
 		
-		if(iteration<6)
+		if(iteration<20)
 		{
 			currAvgMax = output.max;
 			currAvgMin=output.min;
 		}
 		
-		else if(iteration==10)
-		{
-			currAvgMax = output.max;
-			currAvgMin=output.min;
-		}
-		else if(iteration==15)
-		{
-			currAvgMax = output.max;
-			currAvgMin=output.min;
-		}
-		else if(iteration==25)
+		else if(iteration==30)
 		{
 			currAvgMax = output.max;
 			currAvgMin=output.min;
@@ -607,6 +599,12 @@ function genCharts(output)
 			currAvgMax = output.max;
 			currAvgMin=output.min;
 		}
+		else if(iteration==100)
+		{
+			currAvgMax = output.max;
+			currAvgMin=output.min;
+		}
+		
 
 		avgMax[iteration] = currAvgMax;
 		avgMin[iteration] = currAvgMin;
@@ -619,13 +617,14 @@ function genCharts(output)
 			var replacedSegmentArr = [];
 			for(var i=0;i<segment.length;i++)
 			{
+				var quadObj = {"xb":segment[i].xb,"xe":segment[i].xe,"yb":segment[i].yb,"ye":segment[i].ye,"a":segment[i].a};
 				if(i==0)
 				{
 
-					segmentArr.splice(segment[i].n,1,segment[i].s);
+					segmentArr.splice(segment[i].n,1,quadObj);
 				}
 				else
-					segmentArr.splice(segment[i].n,0,segment[i].s);
+					segmentArr.splice(segment[i].n,0,quadObj);
 				
 			}
 			
@@ -638,7 +637,7 @@ function genCharts(output)
 			//console.log(segmentChain,segmentArr);
 			 if(playNoviz==false && simplayFlag==false && resetFlag == false)
 			 {
-				render(iteration, widthWin, heightWin, graph,segmentArr,estimateArr);
+				render(iteration, widthWin, heightWin, graph,segmentArr);
 				seekbar.value = iteration;
 			 }
 				
@@ -648,13 +647,14 @@ function genCharts(output)
 					if(forwardFlag==false)
 					{
 						//ranOnce=true;
-						setTimeout(play,getDelay(iteration));
+						//setTimeout(play,getDelay(iteration));
+						play();
 					}
 					else 
 					{
-						//ranOnce=true;
 						playNoviz=true;
-						setTimeout(play,getDelay(iteration));
+						//setTimeout(play,getDelay(iteration));
+						play();
 					}
 					
 				}
@@ -746,7 +746,7 @@ function reset()
 	//d3.selectAll("svg > *").remove();
 	
 
-	iterationLow = 1;
+	iterationLow = 0;
 	seekbarMax = iterationLow-1;
 	seekbarIter = iterationLow-1;
 	maxIteration = (xMax-xMin+1)*(yMax-yMin+1);
@@ -819,8 +819,8 @@ $('#play').click(function() {
 	}
 	else
 	{
-		pauseIter = iteration;
-		render(pauseIter, widthWin, heightWin, graph,segmentArr,estimateArr);
+		pauseIter = iteration-1;
+		render(pauseIter, widthWin, heightWin, graph,segmentArr);
 		seekbar.value = pauseIter;
 		simplayFlag=true;
 	}
@@ -901,7 +901,7 @@ $('#play').click(function() {
 
 		  	document.getElementById("back").style.opacity = "1";
 		  	//document.getElementById("pause").style.opacity = "0.1";
-	  		render(maxIteration, widthWin, heightWin, graph,segmentArr,estimateArr);
+	  		render(maxIteration, widthWin, heightWin, graph,segmentArr);
 			seekbar.value = maxIteration;
 		  }
 	  	

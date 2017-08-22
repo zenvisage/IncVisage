@@ -1,0 +1,13 @@
+node_modules/
+build/
+*/build/
+*/data/
+new-web-test/Qbank/*
+new-web-test/*.csv
+*nohup.out
+ta
+tb
+ha
+hb
+ha~
+app.js~
