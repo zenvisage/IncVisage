@@ -1,8 +1,0 @@
-N,Q,A,C,T
-1,"For the Week of Year Vs. Year heatmap, which Week of Year had the highest Departure Delay?",52,Week,N
-2,Choose the correct option. Which of the following Months have comparatively higher number of Days with low Arrival Delay? <br/>A) FEB <br/>B) JUL <br/>C) OCT,C,,B
-3,"Over the course of Months, which Day of Week exhibits higher Carrier Delay for AA (Carrier)?  <br/> <format>( XXX,e.g., MON)</format>",SAT,,B
-4,"Choose the correct option. For ATL (destination) airport, which of the following Months exhibited a higher Arrival Delay for majority of the Years? <br/>A) JAN <br/>B) JUL <br/>C) NOV",B,,B
-5,"Over the Years, which of the Day of Week had the highest Arrival Delay in the city of Atlanta- GA (origin city)?  <br/> <format>( XXX,e.g., MON)</format>",FRI,,B
-6,"Find the (Day of Month, Month) pair that had the highest Aircraft Delay in DEN (destination) airport.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 23,Month,N
-7,"Find the (Day of Month, Month) pair in the year 2013, that had the highest Weather Delay.  <br/> <format>(MMM DD, e.g., FEB 29)</format>",DEC 8,Month,N

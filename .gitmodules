@@ -1,0 +1,4 @@
+[submodule "needletail-code-base"]
+	path = needletail-code-base
+        url = git://github.com/zenvisage/IncVisage.git
+        ignore = dirty
