@@ -1,0 +1,276 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import argparse
+import csv
+import ctypes
+import os.path
+import struct
+import sys
+import uuid
+import shutil
+from scipy.stats import randint, uniform, zipf, truncnorm
+import data_utils
+import pandas as pd
+
+MIN_DISTINCT = 10
+MAX_DISTINCT = 10
+BUF_ROW_SIZE = 1000
+
+DISK_PAGE_SIZE = 1024 * 256
+
+# DATA_DIR = os.path.join(os.path.dirname(__file__), '../data')
+
+DATA_DIR = os.path.join(os.path.dirname(__file__),
+                        '/home/srahman7/incvisage-cpp/needletail-code-base/data')
+
+SDB_FNAME = 'sdb'
+SCHEMA_FNAME = 'schema'
+
+DISTTYPE = 'uniform'
+DENSITY = 0.1
+DBCOUNT = 1
+airports = {}
+index = 0
+dataset = ''
+flight = False
+
+
+def read_airport_names():
+    global airports
+    with open('flight_names.csv') as f1:
+        for line in f1:
+            line = line.rstrip('\n')
+            names = line.split('\t')
+            airports[names[0]] = names[1]
+
+
+def gen_dirpath(args):
+
+    # dirname = '%s,rows%d,dcols%d,ccols%d' % (
+    #        uuid.uuid4(), args.rows, args.dcols, args.ccols)
+
+    dirname = dataset
+    dirpath = os.path.join(args.outdir, dirname)
+    print dirpath
+
+    return dirpath
+
+def gen_test_data(
+    dirpath,
+    schema,
+    args,
+    db_index,
+    ):
+    global index
+    global airports
+    if flight:
+        read_airport_names()
+    sdb_path = os.path.join(dirpath, args.sdb_fname + '_'
+                            + str(db_index))
+    sdb = data_utils.SDB(sdb_path, schema)
+    sdb.open('w')
+    records_per_page = sdb.records_per_page()
+    num_pages = (args.rows + records_per_page - 1) / records_per_page
+
+    num_rows = 0
+    row_data = []
+    print records_per_page
+
+#    for row in df.itertuples(index = False):
+
+    flag = True
+    blockcount = 0
+    count = 0
+    dim = 1
+    meas = 100
+    for i in range(16384):
+
+        row_data.append([int(dim),float(meas)])
+        num_rows = num_rows + 1
+        if num_rows == records_per_page:
+            blockcount += 1
+            print count
+            sdb.write(row_data)
+            num_rows = 0
+            row_data = []
+        count = count + 1
+    
+
+    sdb.close()
+
+def gen_data(
+    dirpath,
+    schema,
+    args,
+    db_index,
+    ):
+    global index
+    global airports
+    if flight:
+        read_airport_names()
+    sdb_path = os.path.join(dirpath, args.sdb_fname + '_'
+                            + str(db_index))
+    sdb = data_utils.SDB(sdb_path, schema)
+    sdb.open('w')
+    records_per_page = sdb.records_per_page()
+    num_pages = (args.rows + records_per_page - 1) / records_per_page
+
+    num_rows = 0
+    row_data = []
+    print records_per_page
+
+#    for row in df.itertuples(index = False):
+
+    flag = True
+    blockcount = 0
+    count = 0
+    with open('/home/srahman7/needletail-code-base/data/wundergroundWeed.csv'
+              ) as f:
+        for line in f:
+            if flag:
+                flag = False
+                continue
+            line = line.rstrip('\n')
+            row = line.split(',')
+
+            c = 0
+            new_row = []
+            for i in row:
+                if c>0 and c<7:
+                    new_row.append(int(i))
+                elif c>6 and c< 12:
+                    new_row.append(float(i))
+                c = c + 1
+
+            # print row;
+
+            row_data.append(new_row)
+            num_rows = num_rows + 1
+            if num_rows == records_per_page:
+                blockcount += 1
+                print count
+                sdb.write(row_data)
+                num_rows = 0
+                row_data = []
+            count = count + 1
+        if row_data != []:
+            sdb.write(row_data)
+            blockcount + 1
+            print blockcount
+
+    sdb.close()
+
+
+class TruncnormWrapper(object):
+
+    def __init__(
+        self,
+        _min,
+        _max,
+        mean,
+        std,
+        ):
+        self._mean = mean
+        self._std = std
+        a = (_min - mean) * 1. / std
+        b = (_max - mean) * 1. / std
+        self._rv = truncnorm(a, b)
+
+    def rvs(self, size):
+        return self._mean + self._std * self._rv.rvs(size=size)
+
+
+def create_schema(dirpath, args, db_index):
+    cols = []
+    for i in range(args.dcols):
+        distrib_a = 1.5 + 3.5 * uniform().rvs()
+        rv = zipf(distrib_a)
+        cols.append(data_utils.Column(
+            'd' + str(i),
+            'ulong',
+            'discrete',
+            args.disttype,
+            rv,
+            True,
+            {'distrib_a': distrib_a},
+            ))
+
+        print 'dcol' + str(i) + ' done'
+
+    for i in range(args.ccols):
+        distrib_min = 0
+        distrib_max = 1
+        distrib_mean = .2 + .6 * uniform().rvs()
+        distrib_std = 0.1
+        rv = TruncnormWrapper(distrib_min, distrib_max, distrib_mean,
+                              distrib_std)
+        cols.append(data_utils.Column(
+            'c' + str(i),
+            'double',
+            'continuous',
+            'trucnorm',
+            rv,
+            False,
+            {
+                'distrib_min': 0,
+                'distrib_max': 1,
+                'distrib_mean': distrib_mean,
+                'distrib_std': distrib_std,
+                },
+            ))
+        print 'ccol ' + str(i) + ' done'
+
+    schema_path = os.path.join(dirpath, args.schema_fname + '_'
+                               + str(db_index))
+    schema = data_utils.Schema(schema_path, cols, args)
+    return schema
+
+
+# NOTE - Assuems the distributikons for the columns are uniform
+
+def get_args():
+    parser = argparse.ArgumentParser()
+
+    # Path to directory to create directory in
+
+    parser.add_argument('rows', type=int)
+    parser.add_argument('dcols', type=int)
+    parser.add_argument('ccols', type=int)
+
+    parser.add_argument('-o', dest='outdir', default=DATA_DIR)
+    parser.add_argument('-p', '--page_size', type=int,
+                        default=DISK_PAGE_SIZE)
+    parser.add_argument('-d', dest='dirpath', default=None)
+    parser.add_argument('--dbcount', type=int, default=DBCOUNT)
+    parser.add_argument('--min_distinct', type=int,
+                        default=MIN_DISTINCT)
+    parser.add_argument('--max_distinct', type=int,
+                        default=MAX_DISTINCT)
+    parser.add_argument('--sdb_fname', default=SDB_FNAME)
+    parser.add_argument('--disttype', default=DISTTYPE)
+    parser.add_argument('--density', type=float, default=DENSITY)
+    parser.add_argument('--schema_fname', default=SCHEMA_FNAME)
+    parser.add_argument('--real_data', default=None)
+
+    args = parser.parse_args()
+    args.max_distinct = max(args.min_distinct, args.max_distinct)
+    return args
+
+
+def main():
+    args = get_args()
+    dirpath = (gen_dirpath(args) if args.dirpath
+               is None else args.dirpath)
+    print 'Generated: %s' % dirpath
+
+    for db_index in range(6, 7):
+        schema = create_schema(dirpath, args, db_index)
+        print 'schema done'
+        #gen_data(dirpath, schema, args, db_index)
+        gen_test_data(dirpath, schema, args, db_index)
+        schema.save()
+
+
+if __name__ == '__main__':
+    main()

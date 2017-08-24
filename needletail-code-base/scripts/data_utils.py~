@@ -1,0 +1,205 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import struct
+
+import numpy as np
+from scipy.stats import randint, uniform, zipf, truncnorm
+
+import yaml
+
+
+class Column(object):
+
+    def __init__(
+        self,
+        name,
+        _type,
+        bin_type,
+        distribution,
+        rv,
+        index,
+        extra={},
+        ):
+
+        self._name = name
+        self._type = _type
+        self._bin_type = bin_type
+        self._distribution = distribution
+        self._rv = rv
+        self._index = index
+        self._extra = extra
+        self._unique = set([])
+        self._min = np.inf
+        self._max = -np.inf
+        self._mean = 0.
+        self._num_rows = 0.
+
+    def rvs(self, size):
+        nums = self._rv.rvs(size)
+        self._update(nums)
+        return nums
+
+    def type(self):
+        return self._type
+
+    def _update(self, nums):
+        old_sum = self._mean * self._num_rows
+        self._mean = (old_sum + np.sum(nums)) / (self._num_rows
+                + len(nums))
+        self._num_rows += len(nums)
+        self._min = min(self._min, np.min(nums))
+        self._max = max(self._max, np.max(nums))
+        if self._index:
+            self._unique.update(set(nums))
+
+    def get_dict(self):
+        d = {
+            'name': self._name,
+            'type': self._type,
+            'bin_type': self._bin_type,
+            'distribution': self._distribution,
+            'index': self._index,
+            'cardinality': len(self._unique),
+            'min': float(self._min),
+            'max': float(self._max),
+            'mean': float(self._mean),
+            }
+        for (k, v) in self._extra.iteritems():
+            d[k] = v
+        return d
+
+
+class Schema(object):
+
+    def __init__(
+        self,
+        path,
+        cols=None,
+        args=None,
+        ):
+        """
+        If cols and args are None, this is an old Schema
+        """
+
+        self._path = path
+        self._cols = cols
+        self._args = args
+        self._attr_idx_map = {}
+        if self._cols is None:
+            f = open(self._path)
+            self._doc = yaml.load(f.read())
+            f.close()
+
+            for i in range(len(self._doc['cols'])):
+                self._attr_idx_map[self._doc['cols'][i]['name']] = i
+
+    def page_size(self):
+        if self._args is not None:
+            return self._args.page_size
+        else:
+            return self._doc['page_size']
+
+    def num_rows(self):
+        if self._args is not None:
+            return self._args.rows
+        else:
+            return self._doc['rows']
+
+    # FIXME - This only works with an already written Schema
+
+    def col_attr(self, i, key):
+        return self._doc['cols'][i][key]
+
+    def attr_idx(self, attr_name):
+        return self._attr_idx_map[attr_name]
+
+    def save(self):
+        record_size = struct.calcsize(self.struct_fmt())
+        f = open(self._path, 'w')
+        doc = {
+            'rows': self._args.rows,
+            'min_distinct': self._args.min_distinct,
+            'max_distinct': self._args.max_distinct,
+            'dcols': self._args.dcols,
+            'ccols': self._args.ccols,
+            'cols': [c.get_dict() for c in self._cols],
+            'page_size': self._args.page_size,
+            'record_size': record_size,
+            'records_per_page': self._args.page_size / record_size,
+            }
+        f.write(yaml.dump(doc))
+        f.close()
+
+    # FIXME - This only works with a new Schema
+
+    def cols(self):
+        return self._cols
+
+    def struct_fmt(self):
+        types = []
+        if self._cols is not None:
+            types = [c.type() for c in self._cols]
+        else:
+            types = [c['type'] for c in self._doc['cols']]
+
+        fmt = ''
+        for t in types:
+            if t == 'ulong':
+                fmt += 'q'
+            elif t == 'double':
+                fmt += 'd'
+            else:
+                raise Exception('Unknown type: ' + t)
+        return fmt
+
+
+class SDB(object):
+
+    def __init__(self, path, schema):
+        self._path = path
+        self._schema = schema
+        self._f = None
+        self._page_idx = 0
+
+    def open(self, mode):
+        self._f = open(self._path, mode)
+
+    def write(self, records):
+        fmt = self._schema.struct_fmt()
+        page_size = self._schema.page_size()
+        record_size = struct.calcsize(fmt)
+        records_per_page = page_size / record_size
+        buf = ''
+        for row in records:
+            #print row
+            buf += struct.pack(fmt, *row)
+            self._page_idx = (self._page_idx + 1) % records_per_page
+            if self._page_idx == 0:
+                pad_size = page_size - records_per_page * record_size
+                num_pads = pad_size / struct.calcsize('i')
+                buf += struct.pack('i' * num_pads, *[0] * num_pads)
+        self._f.write(buf)
+
+    def records_per_page(self):
+        fmt = self._schema.struct_fmt()
+        page_size = self._schema.page_size()
+        record_size = struct.calcsize(fmt)
+        records_per_page = page_size / record_size
+        return records_per_page
+
+    def records(self):
+        records_per_page = self.records_per_page()
+        fmt = self._schema.struct_fmt()
+        while True:
+            buf = self._f.read(self._schema.page_size())
+            if buf == '':
+                break
+
+            for i in range(records_per_page):
+                record = struct.unpack_from(fmt, buf,
+                        struct.calcsize(fmt) * i)
+                yield record
+
+    def close(self):
+        self._f.close()
