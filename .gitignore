@@ -1,5 +1,2 @@
 node_modules/
 build/
-*/build/
-*/data/
-*nohup.out
