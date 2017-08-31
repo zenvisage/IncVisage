@@ -18,7 +18,7 @@ IncVisage implements incrementally improving visualization generation algorithms
 ![Alt text](/iamges/front.PNG?raw=true "IncVisage Front End")
 
 ### Additional Readings
-* Our VLDB'17 paper describing the key techniques, solutions and evaluations of IncVisage can be found [here] [incvisage-vldb].
+* Our VLDB'17 paper describing the key techniques, solutions and evaluations of IncVisage can be found [here][incvisage-vldb].
 
 ### Required Tools
 * EWAHboolArray. Git repository [here][ewah-repo]
@@ -29,7 +29,7 @@ For now, we IncVisage installation instructions for Linux environment only.
 
 * Clone the incvisage repository. (Alternatively, you can download the source as a zip.)
      
-        git clone https://github.com/zenvisage/incvisage/zenvisage.git
+        git clone https://github.com/zenvisage/incvisage/incvisage.git
      
 * Clone the EWAHboolArray repository at /needletail-code-base
 
