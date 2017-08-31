@@ -1,7 +1,0 @@
-Year:int,indexed
-Month:int,indexed
-DayofMonth:int,indexed
-DayOfWeek:int,indexed
-UniqueCarrier:string,indexed
-ArrDelay:int,unindexed
-DepDelay:int,unindexed
