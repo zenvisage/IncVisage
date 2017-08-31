@@ -71,7 +71,7 @@ vector<Segment> k_Best[366];
 double groupAvgs[366]; 
 int groupNums[366];
 
-int opt_start = 10000;
+int opt_start = 25000;
 float opt_alpha = 1.02;
 
 int nonSingleGroups = 366;
@@ -93,9 +93,6 @@ double conv_rate = 1.0;
 
 float block_read_time_trend = 2;
 
-//float alloted_time = 1000;
-
-//SwiftMapFactory::map_type_t bmap_type_trend = SwiftMapFactory::EWAH_BITMAP;    
 SwiftMap::sample_type_t sample_type_trend = SwiftMap::SEQUENTIAL;
 
 Trend::Trend(SwiftIndex& swi):swi(swi)
@@ -122,16 +119,11 @@ void Trend::reset()
 		record_id[i] = 0;
 	}
 
-	//this->dimAttr = "";
-	//this->measAttr = "";
-	//this->filterAttr = "";
-	//this->filterVal = "";
-
+	
 	this->firstIteration =  true;
 
-	//this->groupMap.clear();
 	this->groupAvgMap.clear();
-	//this->card = -1;
+	
 	this->split_seg = -1;
 
 	this->firstNewSegment.set_start(0);
@@ -410,9 +402,8 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 
 		for(int g = start,am=0;g <= end;g++,am++)
 		{
-			//cout << this->dimAttr << "," << this->groupMap[g] << endl;
 			conv_rate = 1.0;
-			uint64_t conv_samples = 0;//floor(iter_samples/this->card);
+			uint64_t conv_samples = 0;
 
 			YAML::Node& qry = aqry;
 
@@ -430,37 +421,12 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 
 				conv_samples = per_block_sample*num_blocks_allowed;
 
-				//conv_samples = 100; sensor datq
-
-				//cout << "allowed" << conv_samples << endl;
-
-			}
-			else
-			{
-				//block_read_time_trend = block_read_time;
-				qry["q"]["__nodes__"][this->dimAttr] = this->groupMap[g];
-				qry["q"]["__nodes__"][this->filterAttr] = this->filterVal;
-
-				uint64_t numerator = swi.perGroupValCount[this->dimAttr][this->groupMap[g]]*swi.perGroupValCount[this->filterAttr][filterVal];
 				
-				uint64_t denominator = schema1.get_num_rows()*schema1.get_num_pages();
-				//cout << numerator << "," << denominator << endl;
-				uint64_t per_block_sample = ceil((numerator*1.0)/denominator);
-				//cout << per_block_sample << endl;
-				float dim_comb_allotted_time = alloted_time/(this->card*(swi.perGroupValCount[this->filterAttr].size()-1)); //-1 because there is a 0 key
-				//cout << dim_comb_allotted_time << "," << swi.perGroupValCount[this->filterAttr].size() << endl;
-				uint64_t num_blocks_allowed = ceil((dim_comb_allotted_time*1.0)/block_read_time);
-				//cout << num_blocks_allowed << endl;
-				conv_samples = per_block_sample*num_blocks_allowed;
 
-				//conv_samples = 10; sensor data
-
-				//cout << "allowed" << conv_samples << endl;
 			}
+
 
 			
-			//cout << "allowed--" << conv_samples << endl;
-			//Query query(q, schema1);
 			Query query(qry, schema1);
 			query.set_num_samples(conv_samples);
 			
@@ -469,14 +435,10 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 			ResultSet results(query.get_targets().size());
 
 			
-			//ProfilerStart("cpu.out");
-			//std::clock_t c_start = std::clock();
-			//swi.run_query(query, results, sample_type_trend);
 			record_id[g] = swi.run_query(query, results, sample_type_trend,record_id[g],firstIteration,this->groupMap[g]);
 			if(swi.isRecordEmpty==true)
 			{
 				record_id[g] = -1;
-				//cout << "epmty group: " << g << endl;
 				continue;
 			}
 			std::vector<double> avgs = results.get_avgs();
@@ -499,14 +461,6 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 
 		this->firstIteration = false;
 
-		//vector<ResultObject> resVector;
-		//ResultObject resObj(0,tmpSeg);
-
-		//cout << resObj.seg_no << ",(" << resObj.seg.get_start() << "," << resObj.seg.get_end() << ",) =>" << resObj.seg.get_mean() << endl;
-
-		//resVector.push_back(resObj);
-		//return resVector;
-
 		this->split_seg = -1;
 
 		this->firstNewSegment.set_start(start);
@@ -520,14 +474,12 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 		
 	else
 	{
-		//cout << "assign prev k"<<endl;
 		prev_vect = k_Best[i-1];
 		double global_seg_mean = 0;
 		int split_segment_no = -1;
 		int split_segment_maxSplit = -1;
 		double global_max = -1000000000;
 		double global_best_mean1 = 0, global_best_mean2 = 0;
-		//cout << "sampling"<<endl;
 		for(int s=0;s<prev_vect.size();s++)
 		{
 			
@@ -538,7 +490,6 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 				continue;
 			//---- ask for N samples from a non-single segment group for some target/measure and get the avg 
 			
-			//cout << "seg: "<< s << "=>(" << start << "," << end <<")"<<endl;
 			for(int g = start,am=0;g <= end;g++,am++)
 			{
 				if(record_id[g] == -1)
@@ -549,7 +500,6 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 				
 				uint64_t conv_samples = floor(iter_samples/nonSingleGroups);
 
-				//cout << "group: "<< g <<endl;
 				YAML::Node& qry = aqry;
 
 				if(this->queryType==1)
@@ -566,32 +516,10 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 
 					conv_samples = per_block_sample*num_blocks_allowed;
 
-					//cout << "allowed" << conv_samples << endl;
 
 				}
-				else
-				{
-					//block_read_time_trend = block_read_time;
-					qry["q"]["__nodes__"][this->dimAttr] = this->groupMap[g];
-					qry["q"]["__nodes__"][this->filterAttr] = this->filterVal;
 
-					uint64_t numerator = swi.perGroupValCount[this->dimAttr][this->groupMap[g]]*swi.perGroupValCount[this->filterAttr][filterVal];
-					
-					uint64_t denominator = schema1.get_num_rows()*schema1.get_num_pages();
-					//cout << numerator << "," << denominator << endl;
-					uint64_t per_block_sample = ceil((numerator*1.0)/denominator);
-					//cout << per_block_sample << endl;
-					float dim_comb_allotted_time = alloted_time/(this->card*(swi.perGroupValCount[this->filterAttr].size()-1)); //-1 because there is a 0 key
-					//cout << dim_comb_allotted_time << "," << swi.perGroupValCount[this->filterAttr].size() << endl;
-					uint64_t num_blocks_allowed = ceil((dim_comb_allotted_time*1.0)/block_read_time);
-					//cout << num_blocks_allowed << endl;
-					conv_samples = per_block_sample*num_blocks_allowed;
 
-					//cout << "allowed" << conv_samples << endl;
-				}
-
-				//conv_samples = 100; sensor data
-				//Query query(q, schema1);
 				Query query(qry, schema1);
 				query.set_num_samples(conv_samples);
 				
@@ -600,14 +528,10 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 				ResultSet results(query.get_targets().size());
 
 				
-				//ProfilerStart("cpu.out");
-				//std::clock_t c_start = std::clock();
-				//swi.run_query(query, results, sample_type_trend);
 				record_id[g] = swi.run_query(query, results, sample_type_trend,record_id[g],firstIteration,this->groupMap[g]);
 				if(swi.isRecordEmpty==true)
 				{
 					record_id[g] = -1;
-					//cout << "sample 0: "<<g<<endl;
 					continue;
 				}
 
@@ -638,15 +562,12 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 			double tmp1, tmp2;
 			double max = -1000000000;
 			int maxSplit = -1;
-			//cout << "compute mean "<< endl;
 			for(int g = start, am=0;g <= end;g++,am++)
 			{
 				
-				//cout << "find each split: " << g << endl;
 				alphaT = (1.0 / (g - start + 1)) * avg_map[0][am]; // V_s
 				tmp1 = alphaT;
-				//seg_mean += alpha * alpha * (i - seg_start + 1);
-
+				
 				
 				
 				if (g == end)
@@ -654,7 +575,6 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 				else
 					alphaU = (1.0 / (end - (g + 1) + 1)) * avg_map[am+1][end - start]; // V_s
 				tmp2 = alphaU;
-				//seg_mean += alpha * alpha * (seg_end - (i + 1) + 1); // |S|sum(V_s)
 				seg_mean = (g - start + 1)*(end - (g + 1) + 1)*(alphaT-alphaU)*(alphaT-alphaU)/(card*(end-start+1));
 						
 				if (seg_mean > max) {
@@ -671,8 +591,6 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 				alphaU=0;
 			}
 
-			//cout << "find global max " << endl;
-			//---- find the global best split point
 			global_seg_mean = max;
 		
 			if (global_seg_mean > global_max) {
@@ -688,24 +606,15 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 
 			global_seg_mean = 0;
 
-			
-			
-			
 
 		}	
 
 	
-			//---- create new segment structure and push
-
-
 		vector<Segment> tmp;
 		Segment tmpSeg1(0, 0, 0);
 		Segment tmpSeg2(0, 0, 0);
 		nonSingleGroups = 0;
 
-		//vector<ResultObject> resVector;
-		
-		//cout << "compute k-best "<< endl;
 		for (int s = 0; s < prev_vect.size(); s++) {
 			if (s == split_segment_no) {
 				double tmp_mean = global_best_mean1;
@@ -721,7 +630,6 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 				if(this->avgMin > tmp_mean)
 					this->avgMin = tmp_mean;
 				
-				//cout << "split pt: " << split_segment_maxSplit << " at segment: " << s << "(" << prev_vect[s].get_start() << "," << prev_vect[s].get_end() <<")" << endl;
 				if (split_segment_maxSplit == prev_vect[s].get_end()) {
 
 					tmpSeg1.set_start(prev_vect[s].get_start());
@@ -729,12 +637,7 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 					tmpSeg1.set_mean(global_best_mean1);
 					tmp.push_back(tmpSeg1); 
 
-					//ResultObject resObj1(split_segment_no,tmpSeg1);
-					//resVector.push_back(resObj1);
-
-
-				//	cout << "seg 1: (" << tmpSeg1.get_start() << "," << tmpSeg1.get_end() << "," << tmpSeg1.get_mean() << ")" << endl; 
-
+					
 					if(tmpSeg1.get_end() - tmpSeg1.get_start() > 0)
 						nonSingleGroups += (tmpSeg1.get_end() - tmpSeg1.get_start()+1);
 
@@ -742,11 +645,6 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 					tmpSeg2.set_end(prev_vect[s].get_end());
 					tmpSeg2.set_mean(global_best_mean2);
 					tmp.push_back(tmpSeg2); 
-
-				//	cout << "seg 2: (" << tmpSeg2.get_start() << "," << tmpSeg2.get_end() << "," << tmpSeg2.get_mean() << ")" << endl; 
-
-					//ResultObject resObj2(split_segment_no+1,tmpSeg2);
-					//resVector.push_back(resObj2);
 
 					if(tmpSeg2.get_end() - tmpSeg2.get_start() > 0)
 						nonSingleGroups += (tmpSeg2.get_end() - tmpSeg2.get_start()+1);
@@ -767,9 +665,6 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 					tmpSeg1.set_mean(global_best_mean1);
 					tmp.push_back(tmpSeg1); 
 
-					//ResultObject resObj1(split_segment_no,tmpSeg1);
-					//resVector.push_back(resObj1);
-				//	cout << "seg 1: (" << tmpSeg1.get_start() << "," << tmpSeg1.get_end() << "," << tmpSeg1.get_mean() << ")" << endl; 
 
 					if(tmpSeg1.get_end() - tmpSeg1.get_start() > 0)
 						nonSingleGroups += (tmpSeg1.get_end() - tmpSeg1.get_start()+1);
@@ -779,10 +674,6 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 					tmpSeg2.set_mean(global_best_mean2);
 					tmp.push_back(tmpSeg2); 
 
-					//ResultObject resObj2(split_segment_no+1,tmpSeg2);
-					//resVector.push_back(resObj2);
-
-				//	cout << "seg 2: (" << tmpSeg2.get_start() << "," << tmpSeg2.get_end() << "," << tmpSeg2.get_mean() << ")" << endl; 
 
 					if(tmpSeg2.get_end() - tmpSeg2.get_start() > 0)
 						nonSingleGroups += (tmpSeg2.get_end() - tmpSeg2.get_start()+1);
@@ -828,18 +719,6 @@ void Trend::genHisto(int iteration,SDB& db1,Schema& schema1)
 		vector<Segment>().swap(tmp);
 		vector<Segment>().swap(prev_vect);
 
-		/*cout << "k_best" << endl;
-
-		for(int kb = 0; kb < k_Best[i].size() ; kb++)
-			cout << "seg:" << kb <<" (" << k_Best[i][kb].get_start() << "," << k_Best[i][kb].get_end() << "," << k_Best[i][kb].get_mean() << ")" << endl; 
-
-		cout << "objects returned" << endl;
-
-		cout << "seg 1: (" << firstNewSegment.get_start() << "," << firstNewSegment.get_end() << "," << firstNewSegment.get_mean() << ")" << endl; 
-
-		cout << "seg 2: (" << secondNewSegment.get_start() << "," << secondNewSegment.get_end() << "," << secondNewSegment.get_mean() << ")" << endl; 
-		*/
-		//return resVector;
 	}
 			
 
@@ -916,14 +795,7 @@ void Trend::genHistoBase(int iteration,SDB& db1,Schema& schema1)
 				qry["q"][this->dimAttr] = this->groupMap[g];//groupMap
 				
 			}
-			else
-			{
-				qry["q"]["__nodes__"][this->dimAttr] = this->groupMap[g];
-				qry["q"]["__nodes__"][this->filterAttr] = this->filterVal;
-			}
-
-
-			//Query query(q, schema1);
+			
 			Query query(qry, schema1);
 			query.set_num_samples(conv_samples);
 			
@@ -932,15 +804,11 @@ void Trend::genHistoBase(int iteration,SDB& db1,Schema& schema1)
 			ResultSet results(query.get_targets().size());
 
 			
-			//ProfilerStart("cpu.out");
-			//std::clock_t c_start = std::clock();
-			//swi.run_query(query, results, sample_type_trend);
 			record_id[g] = swi.run_query(query, results, sample_type_trend,record_id[g],firstIteration,this->groupMap[g]);
 
 			if(swi.isRecordEmpty==true)
 			{
 				record_id[g] = -1;
-				//cout << "sample 0: "<<g<<endl;
 				continue;
 			}
 			std::vector<double> avgs = results.get_avgs();

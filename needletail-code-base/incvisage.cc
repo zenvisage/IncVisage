@@ -33,16 +33,12 @@ int heat_ymax = 0;
 Schema schema("/home/srahman7/incvisage-cpp/needletail-code-base/data/1/schema_1", 0);
 SDB db("/home/srahman7/incvisage-cpp/needletail-code-base/data/1/sdb_1",schema);
 
-//Schema schema("/home/srahman7/incvisage-cpp/needletail-code-base/data/2/schema_2", 0);
-//SDB db("/home/srahman7/incvisage-cpp/needletail-code-base/data/2/sdb_2",schema);
-
 bool old_swi = false;
 bool new_swi = false;
 
 const char* swi_fname = "swi_file";
 
-SwiftMapFactory::map_type_t bmap_type = SwiftMapFactory::EWAH_BITMAP; //DENSITY_MAP  //EWAH_BITMAP 
-//SwiftMap::sample_type_t sample_type = SwiftMap::PSEUDORANDOM;//PSEUDORANDOM //SEQUENTIAL
+SwiftMapFactory::map_type_t bmap_type = SwiftMapFactory::EWAH_BITMAP; 
 
 Binner binner;
 
@@ -58,17 +54,6 @@ std::string dataset;
 
 void getVizType(const v8::FunctionCallbackInfo<v8::Value>& args) {
    
-  /*std::map<std::string,std::map<int,int>>::iterator it1;
-  std::map<int,int>::iterator it2;
-  for ( it1 = swi.perGroupValCount.begin(); it1 != swi.perGroupValCount.end(); it1++ )
-  {
-    for ( it2 = it1->second.begin(); it2 != it1->second.end(); it2++ )
-    {
-      std::cout << it1->first << "," << it2->first << "," << it2->second << std::endl;
-    }
-  }*/
-
-
   Isolate* isolate = args.GetIsolate();
   Local<Number> retval = v8::Number::New(isolate, vizType);
   args.GetReturnValue().Set(retval);
@@ -290,8 +275,7 @@ void loadAxesData(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
     
     trend.loadAxesData(dim,meas,filter,filterVal);
-    //std::cout << trend.dimAttr << "," << trend.measAttr << "," << trend.filterAttr << "," << trend.filterVal << std::endl;
-
+   
     Local<Object> obj = Object::New(isolate);
 
     obj->Set(String::NewFromUtf8(isolate, "xMin"), 
@@ -484,9 +468,8 @@ void genChart(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
     Local<Array> result_list = Array::New(isolate);
     
-    //std::cout << trend.split_seg << ",(" << trend.firstNewSegment.get_start() << "," << trend.firstNewSegment.get_end() << ") <=>" << trend.firstNewSegment.get_mean() << std::endl;
     Local<Object> result = Object::New(isolate);
-    //std::cout << "send for packing1" << std::endl;
+    
     pack_cell_result(isolate, result,1);
     result_list->Set(0, result);
     
@@ -536,13 +519,8 @@ void genChart(const v8::FunctionCallbackInfo<v8::Value>& args) {
   {
     trend.genHistoBase(iteration,db,schema);
 
-    //std::cout << "result recived" << std::endl;
-
     Local<Array> result_list = Array::New(isolate);
     
-    //std::cout << trend.split_seg << ",(" << trend.firstNewSegment.get_start() << "," << trend.firstNewSegment.get_end() << ") <=>" << trend.firstNewSegment.get_mean() << std::endl;
-    
-    //std::cout << "send for packing1" << std::endl;
     std::map<int,float>::iterator it;
     int seg_no=0;
     for ( it = trend.groupAvgMap.begin(); it != trend.groupAvgMap.end(); it++ )
@@ -551,9 +529,6 @@ void genChart(const v8::FunctionCallbackInfo<v8::Value>& args) {
       int group = trend.groupMap[it->first];
   
       float mean = it->second;
-
-      
-      //std::cout << seg_no << ",(" << start << "," << end << ") =>" << mean << std::endl;
 
       result->Set(String::NewFromUtf8(isolate, "n"), Integer::New(isolate, seg_no));
       result->Set(String::NewFromUtf8(isolate, "b"), Integer::New(isolate, group));
@@ -571,16 +546,10 @@ void genChart(const v8::FunctionCallbackInfo<v8::Value>& args) {
   else
   {
     using namespace std;
-     heat.genHeatBase(iteration,db,schema);
-
-    //std::cout << "result recived" << std::endl;
+    heat.genHeatBase(iteration,db,schema);
 
     Local<Array> result_list = Array::New(isolate);
     
-    //std::cout << trend.split_seg << ",(" << trend.firstNewSegment.get_start() << "," << trend.firstNewSegment.get_end() << ") <=>" << trend.firstNewSegment.get_mean() << std::endl;
-    
-    //std::cout << "send for packing1" << std::endl;
-
     map<string,float>::iterator it;
     int quad_no=0;
     for ( it = heat.groupAvgMap.begin(); it != heat.groupAvgMap.end(); it++ )
@@ -611,8 +580,6 @@ void genChart(const v8::FunctionCallbackInfo<v8::Value>& args) {
       ye = groupY;
 
       
-     // std::cout << key << ",(" << xb << "," << xe << ") and " << " (" << yb << "," << ye << ")" << std::endl;
-
       result->Set(String::NewFromUtf8(isolate, "n"), Integer::New(isolate, quad_no));
       result->Set(String::NewFromUtf8(isolate, "xb"), Integer::New(isolate, xb));
       result->Set(String::NewFromUtf8(isolate, "xe"), Integer::New(isolate, xe));

@@ -89,10 +89,7 @@ void incVisage(int argc, char *argv[])
 	char c;
 	while ((c = getopt(argc, argv, "i:o:r:q:b:n:d:t:c:x:m:p")) != -1) {
 		switch (c) {
-		//case 'c':
-		//    import_csv = true;
-		//    csv_fname = optarg;
-		//    break;
+		
 		case 'i':
 			old_swi = true;
 			swi_fname = optarg;
@@ -182,9 +179,9 @@ void incVisage(int argc, char *argv[])
 
 cout << "creating dummy" << endl;
 	
-	Schema schema_dummy("/home/srahman7/needletail-code-base/data/schema_9", 100000000);
+	Schema schema_dummy("./needletail-code-base/data/schema_9", 100000000);
 
-	SDB sdb_dummy("/home/srahman7/needletail-code-base/data/sdb_9", schema_dummy);
+	SDB sdb_dummy("./needletail-code-base/data/sdb_9", schema_dummy);
     sdb_dummy.clear();
     cout << "clear dummy" << endl;
     Binner binner_dummy;
@@ -195,7 +192,7 @@ cout << "creating dummy" << endl;
 
     std::ostringstream temp;
 
-    temp << "/home/srahman7/needletail-code-base/results/results_IV_" << dataset_name << ".csv" << ends;
+    temp << "./needletail-code-base/results/results_IV_" << dataset_name << ".csv" << ends;
 
     ofstream results_file;
 	results_file.open(temp.str(),std::ofstream::out | std::ofstream::app);
@@ -773,9 +770,9 @@ void incVisageSamplingRate(int argc, char *argv[])
 
 cout << "creating dummy" << endl;
 	
-	Schema schema_dummy("/home/srahman7/needletail-code-base/data/schema_9", 100000000);
+	Schema schema_dummy("./needletail-code-base/data/schema_9", 100000000);
 
-	SDB sdb_dummy("/home/srahman7/needletail-code-base/data/sdb_9", schema_dummy);
+	SDB sdb_dummy("./needletail-code-base/data/sdb_9", schema_dummy);
     sdb_dummy.clear();
     cout << "clear dummy" << endl;
     Binner binner_dummy;
@@ -837,7 +834,7 @@ cout << "creating dummy" << endl;
 				std::ostringstream temp;
 				int opt_start = 25000;
 				float opt_alpha = 1.02;
-			    temp << "/home/srahman7/needletail-code-base/results/results_sampling_"<<opt_start<<"_"<< dataset_name << ".csv" << ends;
+			    temp << "./needletail-code-base/results/results_sampling_"<<opt_start<<"_"<< dataset_name << ".csv" << ends;
 
 			    ofstream results_file;
 				results_file.open(temp.str(),std::ofstream::out | std::ofstream::app);
@@ -1267,20 +1264,7 @@ cout << "creating dummy" << endl;
 
 int main(int argc, char *argv[])
 {
-	//cout << "incvisage" << endl;
-	//incVisage(argc,argv);
-
-	//cout << "incvisage samples" << endl;
-	//incVisageSamplingRate(argc,argv);
-
-	//cout << "dp" << endl;
-	//dpSamplingRate(argc,argv);
-
-	//cout << "range scan test" << endl;
-	//rangeSeqScan(argc,argv);
 	
-
-
 	cout << "file scan test" << endl;
 	std::ostringstream temp;
 	int dset[3] = {1,3,5};
@@ -1289,19 +1273,19 @@ int main(int argc, char *argv[])
 	{
 		temp.str("");
 		temp.clear();
-		temp << "/home/srahman7/needletail-code-base/data/sdb_" << dset[i];
+		temp << "./needletail-code-base/data/sdb_" << dset[i];
 		char* dataset = new char[temp.str().length() + 1];
 		std::strcpy(dataset, temp.str().c_str());
 
 		temp.str("");
 		temp.clear();
-		temp << "/home/srahman7/needletail-code-base/data/schema_" << dset[i];
+		temp << "./needletail-code-base/data/schema_" << dset[i];
 		char* schema = new char[temp.str().length() + 1];
 		std::strcpy(schema, temp.str().c_str());
 
 		temp.str("");
 		temp.clear();
-		temp << "/home/srahman7/needletail-code-base/scripts/q";
+		temp << "./needletail-code-base/scripts/q";
 		char* query = new char[temp.str().length() + 1];
 		std::strcpy(query, temp.str().c_str());
 		fileScan(dataset,schema,query);	

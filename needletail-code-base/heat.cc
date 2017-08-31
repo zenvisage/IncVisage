@@ -64,9 +64,6 @@
 
 using namespace std;
 
-//Schema schema11("/home/srahman7/incvisage-cpp/needletail-code-base/data/1/schema_1", 0);
-//SDB db11("/home/srahman7/incvisage-cpp/needletail-code-base/data/1/sdb_1",schema11);
-
 vector<Quadrant> k_Best_heat[1000];
 double groupAvgs_heat[366][366]; 
 int groupNums_heat[366][366];
@@ -89,9 +86,6 @@ double conv_rate_heat = 1.0;
 
 float block_read_time_heat = 4;
 
-//float alloted_time = 1000;
-		
-//SwiftMapFactory::map_type_t bmap_type_heat = SwiftMapFactory::EWAH_BITMAP;    
 SwiftMap::sample_type_t sample_type_heat = SwiftMap::SEQUENTIAL;
 
 Heat::Heat(SwiftIndex& swi_heat):swi_heat(swi_heat)
@@ -128,20 +122,11 @@ void Heat::reset()
 
 	for(int i=0;i<1000;i++)
 		vector<Quadrant>().swap(k_Best_heat[i]);
-	//this->dimXAttr = "";
-	//this->dimYAttr = "";
-	//this->measAttr = "";
-	//this->filterAttr = "";
-	//this->filterVal = "";
-
+	
 	this->firstIteration =  true;
 	this->isTwoSeg = false;
 	this->isOneCell =  false;
 
-	//this->groupXMap.clear();
-	//this->groupYMap.clear();
-	//this->cardX = -1;
-	//this->cardY = -1;
 	this->split_quad = -1;
 
 	this->firstNewQuadrant.set_xStart(0);
@@ -168,7 +153,6 @@ void Heat::reset()
 	this->fourthNewQuadrant.set_yEnd(0);
 	this->fourthNewQuadrant.set_mean(0);
 
-	//this->queryType = -1;
 	this->isContinue = 1;
 
 	this->avgMin = 10000000;
@@ -184,15 +168,7 @@ void Heat::setMaps(std::string dataset)
 	if(dataset == "flight")
   	{
   		//load the sdb
-		//const char* sdb_fname = "/home/srahman7/incvisage-cpp/needletail-code-base/data/1/sdb_1";
-		//const char* schema_fname = "/home/srahman7/incvisage-cpp/needletail-code-base/data/1/schema_1";
 		
-		//Schema schema(schema_fname, 0);
-
-		//db = new SDB(sdb_fname, schema);
-
-		//db.clear();
-
   		this->dimMap["Day"] = "d0";
   		this->dimMap["Month"] = "d1";
   		this->dimMap["Day Of Month"] = "d2";
@@ -348,7 +324,7 @@ void Heat::loadAxesData(std::string dim1,std::string dim2,std::string meas,std::
 
 
 	
-	string fname = "/home/srahman7/incvisage-cpp/needletail-code-base/data/";
+	string fname = "./incvisage-cpp/needletail-code-base/data/";
 	if(this->dataset == "flight" )
 	{
 		fname = fname+"1/schema_1.csv";
@@ -358,7 +334,7 @@ void Heat::loadAxesData(std::string dim1,std::string dim2,std::string meas,std::
 	{
 		fname = fname+"2/schema_2.csv";
 	}
-	//cout << "print group maps" << endl;
+	
 	std::ostringstream temp;
 	temp.str("");
 	temp.clear();
@@ -406,28 +382,18 @@ void Heat::loadAxesData(std::string dim1,std::string dim2,std::string meas,std::
 
     this->cardX = this->xMax-this->xMin+1;
     this->cardY = this->yMax-this->yMin+1;
-	//cout << "print group maps" << endl;
+	
 	for(int i = this->xMin,j=0;i<=this->xMax;i++,j++)
 	{
 		groupXMap[j] = i;
-		//cout << j << "=>" << groupMap[j] << endl;
+		
 	}
 
 	for(int i = this->yMin,j=0;i<=this->yMax;i++,j++)
 	{
 		groupYMap[j] = i;
-		//cout << j << "=>" << groupMap[j] << endl;
+		
 	}
-
-	/*for(int i = this->xMin,j=0;i<=this->xMax;i++,j++)
-	{
-		for(int i = this->yMin,j=0;i<=this->yMax;i++,j++)
-		{
-			string key = to_string(groupXMap[i])+","+to_string(groupYMap[j]);
-			groupAvgMap[key] = 0;
-			//cout << j << "=>" << groupMap[j] << endl;
-		}
-	}*/
 
 	isContinue = 1;
 
@@ -447,7 +413,7 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 
 	int i = iteration;
 	string query_fname = "";
-	string qt = "/home/srahman7/incvisage-cpp/needletail-code-base/scripts/";
+	string qt = "./incvisage-cpp/needletail-code-base/scripts/";
 
 	if(this->queryType==1)
 		query_fname = qt+"qh1";
@@ -490,8 +456,6 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 		{
 			for(int gY = startY;gY <= endY;gY++)
 			{
-				//cout << "g: " << g << endl;
-				//cout << "("<< gX <<","<<gY <<")-- no samples?: " << record_id_heat[gX][gY] << endl;
 				conv_rate_heat = 1.0;
 				uint64_t conv_samples = floor(iter_samples/(this->cardX*this->cardY));
 				
@@ -505,43 +469,17 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 					uint64_t numerator = swi_heat.perGroupValCount[this->dimXAttr][this->groupXMap[gX]]*swi_heat.perGroupValCount[this->dimYAttr][this->groupYMap[gY]];
 					
 					uint64_t denominator = schema11.get_num_rows()*schema11.get_num_pages();
-					//cout << numerator << "," << denominator << endl;
-					uint64_t per_block_sample = ceil((numerator*1.0)/denominator);
-					//cout << per_block_sample << endl;
-					float dim_comb_allotted_time = alloted_time/(this->cardX*this->cardY); 
-					//cout << dim_comb_allotted_time << "," << swi_heat.perGroupValCount[this->filterAttr].size() << endl;
-					uint64_t num_blocks_allowed = ceil((dim_comb_allotted_time*1.0)/block_read_time_heat);
-					//cout << num_blocks_allowed << endl;
-					conv_samples = per_block_sample*num_blocks_allowed;
-
-					//cout << "allowed" << conv_samples << endl;
-				}
-				else
-				{ 
-					//block_read_time_heat = block_read_time;
-					qry["q"]["__nodes__"][this->dimXAttr] = this->groupXMap[gX];
-					qry["q"]["__nodes__"][this->dimYAttr] = this->groupYMap[gY];
-					qry["q"]["__nodes__"][this->filterAttr] = this->filterVal;
-
-					uint64_t numerator = swi_heat.perGroupValCount[this->dimXAttr][this->groupXMap[gX]]*swi_heat.perGroupValCount[this->dimYAttr][this->groupYMap[gY]]*swi_heat.perGroupValCount[this->filterAttr][filterVal];
 					
-					//cout << swi_heat.perGroupValCount[this->dimXAttr][this->groupXMap[gX]] << "," << swi_heat.perGroupValCount[this->dimYAttr][this->groupYMap[gY]] << "," << swi_heat.perGroupValCount[this->filterAttr][filterVal] << endl;
-					uint64_t denominator = schema11.get_num_rows()*schema11.get_num_rows()*schema11.get_num_pages();
-					//cout << numerator << "," << denominator << endl;
 					uint64_t per_block_sample = ceil((numerator*1.0)/denominator);
-					//cout << per_block_sample << endl;
-					float dim_comb_allotted_time = alloted_time/(this->cardX*this->cardY*(swi_heat.perGroupValCount[this->filterAttr].size()-1)); //-1 because there is a 0 key
-					//cout << dim_comb_allotted_time << "," << swi_heat.perGroupValCount[this->filterAttr].size() << endl;
+					
+					float dim_comb_allotted_time = alloted_time/(this->cardX*this->cardY); 
+					
 					uint64_t num_blocks_allowed = ceil((dim_comb_allotted_time*1.0)/block_read_time_heat);
-					//cout << num_blocks_allowed << endl;
+					
 					conv_samples = per_block_sample*num_blocks_allowed;
-
-					//cout << "allowed" << conv_samples << endl;
 				}
+							
 
-				
-
-				//Query query(q, schema11);
 				Query query(qry, schema11);
 				query.set_num_samples(conv_samples);
 				
@@ -550,9 +488,6 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 				ResultSet results(query.get_targets().size());
 
 				
-				//ProfilerStart("cpu.out");
-				//std::clock_t c_start = std::clock();
-				//swi_heat.run_query(query, results, sample_type_heat);
 				record_id_heat[gX][gY] = swi_heat.run_query(query, results, sample_type_heat,record_id_heat[gX][gY],firstIteration,this->groupXMap[gX],this->groupYMap[gY]);
 				if(swi_heat.isRecordEmpty==true)
 				{
@@ -586,14 +521,6 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 
 		this->firstIteration = false;
 
-		//vector<ResultObject> resVector;
-		//ResultObject resObj(0,tmpSeg);
-
-		//cout << resObj.quad_no << ",(" << resObj.seg.get_start() << "," << resObj.seg.get_end() << ",) =>" << resObj.seg.get_mean() << endl;
-
-		//resVector.push_back(resObj);
-		//return resVector;
-
 		this->split_quad = -1;
 
 		this->firstNewQuadrant.set_xStart(startX);
@@ -616,7 +543,7 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 		int split_quad_maxSplitY = -1;
 		double global_max = -1000000000;
 		double global_best_mean1 = 0, global_best_mean2 = 0, global_best_mean3 = 0, global_best_mean4 = 0;
-		//cout << "sampling" << endl;
+		
 		for(int s=0;s<prev_vect.size();s++)
 		{
 			
@@ -634,15 +561,13 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 			{
 				for(int gY = startY;gY <= endY;gY++)
 				{
-					//cout << "("<< gX <<","<<gY <<")-- no samples?: " << record_id_heat[gX][gY] << endl;
 					if(record_id_heat[gX][gY]==-1)
 						continue;
-					//cout << "g: " << g << endl;
 					conv_rate_heat = 1.0;
 					uint64_t conv_samples = floor(iter_samples/(this->cardX*this->cardY));
 
 					YAML::Node& qry = aqry;
-					//cout << "("<< gX <<","<<gY <<")-- num samples: " << conv_samples << endl;
+					
 					if(this->queryType==1)
 					{
 						qry["q"]["__nodes__"][this->dimXAttr] = this->groupXMap[gX];
@@ -651,41 +576,16 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 						uint64_t numerator = swi_heat.perGroupValCount[this->dimXAttr][this->groupXMap[gX]]*swi_heat.perGroupValCount[this->dimYAttr][this->groupYMap[gY]];
 						
 						uint64_t denominator = schema11.get_num_rows()*schema11.get_num_pages();
-						//cout << numerator << "," << denominator << endl;
 						uint64_t per_block_sample = ceil((numerator*1.0)/denominator);
-						//cout << per_block_sample << endl;
-						float dim_comb_allotted_time = alloted_time/(this->cardX*this->cardY); 
-						//cout << dim_comb_allotted_time << "," << swi_heat.perGroupValCount[this->filterAttr].size() << endl;
-						uint64_t num_blocks_allowed = ceil((dim_comb_allotted_time*1.0)/block_read_time_heat);
-						//cout << num_blocks_allowed << endl;
-						conv_samples = per_block_sample*num_blocks_allowed;
-
-						//cout << "allowed" << conv_samples << endl;
-					}
-					else
-					{ 
-						//block_read_time_heat = block_read_time;
-						qry["q"]["__nodes__"][this->dimXAttr] = this->groupXMap[gX];
-						qry["q"]["__nodes__"][this->dimYAttr] = this->groupYMap[gY];
-						qry["q"]["__nodes__"][this->filterAttr] = this->filterVal;
-
-						uint64_t numerator = swi_heat.perGroupValCount[this->dimXAttr][this->groupXMap[gX]]*swi_heat.perGroupValCount[this->dimYAttr][this->groupYMap[gY]]*swi_heat.perGroupValCount[this->filterAttr][filterVal];
 						
-						//cout << swi_heat.perGroupValCount[this->dimXAttr][this->groupXMap[gX]] << "," << swi_heat.perGroupValCount[this->dimYAttr][this->groupYMap[gY]] << "," << swi_heat.perGroupValCount[this->filterAttr][filterVal] << endl;
-						uint64_t denominator = schema11.get_num_rows()*schema11.get_num_rows()*schema11.get_num_pages();
-						//cout << numerator << "," << denominator << endl;
-						uint64_t per_block_sample = ceil((numerator*1.0)/denominator);
-						//cout << per_block_sample << endl;
-						float dim_comb_allotted_time = alloted_time/(this->cardX*this->cardY*(swi_heat.perGroupValCount[this->filterAttr].size()-1)); //-1 because there is a 0 key
-						//cout << dim_comb_allotted_time << "," << swi_heat.perGroupValCount[this->filterAttr].size() << endl;
+						float dim_comb_allotted_time = alloted_time/(this->cardX*this->cardY); 
+						
 						uint64_t num_blocks_allowed = ceil((dim_comb_allotted_time*1.0)/block_read_time_heat);
-						//cout << num_blocks_allowed << endl;
+						
 						conv_samples = per_block_sample*num_blocks_allowed;
 
-						//cout << "allowed" << conv_samples << endl;
 					}
-
-
+					
 					//Query query(q, schema11);
 					Query query(qry, schema11);
 					query.set_num_samples(conv_samples);
@@ -695,14 +595,10 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 					ResultSet results(query.get_targets().size());
 
 					
-					//ProfilerStart("cpu.out");
-					//std::clock_t c_start = std::clock();
-					//swi_heat.run_query(query, results, sample_type_heat);
 					record_id_heat[gX][gY] = swi_heat.run_query(query, results, sample_type_heat,record_id_heat[gX][gY],firstIteration,this->groupXMap[gX],this->groupYMap[gY]);
 					if(swi_heat.isRecordEmpty==true)
 					{
 						record_id_heat[gX][gY] = -1;
-						//cout << "("<< gX <<","<<gY <<")-- empty" << groupNums_heat[gX][gY] << endl;
 						continue;
 					}
 					std::vector<double> avgs = results.get_avgs();
@@ -715,7 +611,7 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 
 
 		}	
-		//cout << "sampling done" << endl;
+		
 		for(int s=0;s<prev_vect.size();s++)
 		{
 			
@@ -839,7 +735,6 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 				}
 			}
 
-			//cout << "find global max " << endl;
 			//---- find the global best split point
 			global_quad_mean = max;
 		
@@ -862,11 +757,7 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 		}
 			
 			
-		//cout << "split choice done" << endl;
-			
-
-
-			//---- create new Quadrant structure and push
+		//---- create new Quadrant structure and push
 
 
 		vector<Quadrant> tmp;
@@ -879,10 +770,7 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 
 		for (int s = 0; s < prev_vect.size(); s++) {
 			if (s == split_Quadrant_no) {
-				//cout << "split pt: " << split_Quadrant_maxSplit << " at Quadrant: " << s << "(" << prev_vect[s].get_start() << "," << prev_vect[s].get_end() <<")" << endl;
 				
-
-
 				if (split_quad_maxSplitX < prev_vect[s].get_xEnd()) {
 					if (split_quad_maxSplitY == prev_vect[s].get_yStart()) {
 						// split in two quad 1 and 2
@@ -1161,21 +1049,21 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 								float quad3 = groupAvgs_heat[prev_vect[s].get_xEnd()][prev_vect[s].get_yStart()]; //quad 3
 																	
 								float quad1=0,quad2=0,quad4=0;
-								//System.out.println("Quad 3: "+quad3);
+								
 								//quad 2
-								//System.out.println("Quad 2");
+								
 								for(int q=prev_vect[s].get_yStart()+1;q<=prev_vect[s].get_yEnd();q++)
 								{
 									quad2+= groupAvgs_heat[prev_vect[s].get_xEnd()][q];
-									//System.out.println(groupAGG.get(groupsXY[prev_vect[s].get_xEnd()][q]).avg);
+									
 								}
 								quad2 = quad2/(prev_vect[s].get_yEnd()-(prev_vect[s].get_yStart()+1)+1);
 								//quad 4
-								//System.out.println("Quad 4");
+								
 								for(int p=prev_vect[s].get_xStart();p<prev_vect[s].get_xEnd();p++)
 								{
 									quad4+= groupAvgs_heat[p][prev_vect[s].get_yStart()];
-									//System.out.println(groupAGG.get(groupsXY[p][prev_vect[s].get_yStart()]).avg);
+									
 								}
 								quad4 = quad4/(prev_vect[s].get_xEnd()-1-prev_vect[s].get_xStart()+1); 
 								
@@ -1244,8 +1132,6 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 								this->isTwoSeg = false;
 								this->isOneCell = false;
 								
-								//System.out.println("rectangle: "+quad1+","+quad2+","+quad3+","+quad4);
-
 								double tmp_mean = getMax(getMax(quad1,quad2),getMax(quad3,quad4));
 								if(this->avgMax < tmp_mean)
 									this->avgMax = tmp_mean;
@@ -1333,18 +1219,6 @@ void Heat::genHeat(int iteration,SDB& db11,Schema& schema11)
 		vector<Quadrant>().swap(tmp);
 		vector<Quadrant>().swap(prev_vect);
 
-		/*cout << "k_Best_heat" << endl;
-
-		for(int kb = 0; kb < k_Best_heat[i].size() ; kb++)
-			cout << "seg:" << kb <<" (" << k_Best_heat[i][kb].get_start() << "," << k_Best_heat[i][kb].get_end() << "," << k_Best_heat[i][kb].get_mean() << ")" << endl; 
-
-		cout << "objects returned" << endl;
-
-		cout << "seg 1: (" << firstNewQuadrant.get_start() << "," << firstNewQuadrant.get_end() << "," << firstNewQuadrant.get_mean() << ")" << endl; 
-
-		cout << "seg 2: (" << secondNewQuadrant.get_start() << "," << secondNewQuadrant.get_end() << "," << secondNewQuadrant.get_mean() << ")" << endl; 
-		*/
-		//return resVector;
 	}
 			
 
@@ -1364,13 +1238,11 @@ void Heat::genHeatBase(int iteration,SDB& db11,Schema& schema11)
 
 	int i = iteration;
 	string query_fname = "";
-	string qt = "/home/srahman7/incvisage-cpp/needletail-code-base/scripts/";
+	string qt = "./incvisage-cpp/needletail-code-base/scripts/";
 
 	if(this->queryType==1)
 		query_fname = qt+"qh1";
-	else
-		query_fname = qt+"qh2";
-
+	
 	temp.str("");
 	temp.clear();
 	temp << query_fname;
@@ -1406,7 +1278,6 @@ void Heat::genHeatBase(int iteration,SDB& db11,Schema& schema11)
 		{
 			for(int gY = startY;gY <= endY;gY++)
 			{
-				//cout << "g: " << g << endl;
 				if(record_id_heat[gX][gY]==-1)
 					continue;
 
@@ -1420,16 +1291,7 @@ void Heat::genHeatBase(int iteration,SDB& db11,Schema& schema11)
 					qry["q"]["__nodes__"][this->dimXAttr] = this->groupXMap[gX];
 					qry["q"]["__nodes__"][this->dimYAttr] = this->groupYMap[gY];
 				}
-				else
-				{
-					qry["q"]["__nodes__"][this->dimXAttr] = this->groupXMap[gX];
-					qry["q"]["__nodes__"][this->dimYAttr] = this->groupYMap[gY];
-					qry["q"]["__nodes__"][this->filterAttr] = this->filterVal;
-				}
 
-				
-
-				//Query query(q, schema11);
 				Query query(qry, schema11);
 				query.set_num_samples(conv_samples);
 				
@@ -1438,9 +1300,6 @@ void Heat::genHeatBase(int iteration,SDB& db11,Schema& schema11)
 				ResultSet results(query.get_targets().size());
 
 				
-				//ProfilerStart("cpu.out");
-				//std::clock_t c_start = std::clock();
-				//swi_heat.run_query(query, results, sample_type_heat);
 				record_id_heat[gX][gY] = swi_heat.run_query(query, results, sample_type_heat,record_id_heat[gX][gY],firstIteration,this->groupXMap[gX],this->groupYMap[gY]);
 				if(swi_heat.isRecordEmpty==true)
 				{
@@ -1454,7 +1313,7 @@ void Heat::genHeatBase(int iteration,SDB& db11,Schema& schema11)
 				groupNums_heat[gX][gY] += conv_samples;
 
 				string key = to_string(this->groupXMap[gX])+","+to_string(this->groupYMap[gY]);
-				//cout << key << ":" << gX << "," << gY << endl;
+				
 				groupAvgMap[key] = groupAvgs_heat[gX][gY];
 
 				if(this->avgMax < groupAvgs_heat[gX][gY])
@@ -1494,7 +1353,6 @@ int Heat::toContinue()
 
 bool Heat::validCells(int gX,int gY)
 {	
-	//cout << "x: " << gX << ", y: " << gY << "=" << record_id_heat[gX][gY] << endl;
 	if(record_id_heat[gX][gY]==-1)
 		return false;
 	return true;
