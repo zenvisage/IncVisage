@@ -1,7 +1,7 @@
 # IncVisage: A Tool for Incremental Generation of Visualizations  
 IncVisage is a tool that facilitates faster analysis of large scale datasets by incrementally revealing its features thus allowing users to gain insights quickly (within seconds) and terminate early. To do so, we introduce a new paradigm called "incrementally improving visualizations" where the underlying algorithms progressively draw samples from the dataset and reveal insights when certain guarantees are satisifed. We specifically focus on trendlines and heatmaps as these are the most common mechanisms to interact with and extract insights from time series datasets. The following figure shows how users can utilize IncVisage to visualize incremntal generation of trendlines and heatmaps. 
 
-![Alt text](/iamges/inc.PNG?raw=true "Incrementally Improving Visualizations")
+![Alt text](/images/inc.PNG?raw=true "Incrementally Improving Visualizations")
 
 ### Version
 The current version is still in beta mode. We are working on publishing our first stable version.
@@ -15,7 +15,7 @@ IncVisage implements incrementally improving visualization generation algorithms
 
 * Incvisage provides a anamation pane to play, pause and reset the visualization generations at any point of type. Users can also take snapshots of a iteration and compare it with newer iterations when making decisions.   
 
-![Alt text](/iamges/front.PNG?raw=true "IncVisage Front End")
+![Alt text](/images/front.PNG?raw=true "IncVisage Front End")
 
 ### Additional Readings
 * Our VLDB'17 paper describing the key techniques, solutions and evaluations of IncVisage can be found [here][incvisage-vldb].
