@@ -13,7 +13,7 @@ IncVisage implements incrementally improving visualization generation algorithms
 
 * Incvisage provides an options menu select attributes of a dataset that is tanslated to an aggregate query at the back end.
 
-* Incvisage provides a anamation pane to play, pause and reset the visualization generations at any point of type. Users can also take snapshots of a iteration and compare it with newer iterations when making decisions.   
+* Incvisage provides an anamation pane to play, pause and reset the visualization generations at any point of type. Users can also take snapshots of a iteration and compare it with newer iterations when making decisions.   
 
 ![Alt text](/images/front.PNG?raw=true "IncVisage Front End")
 
@@ -57,7 +57,7 @@ Currently, IncVisage only accepts .sdb dataset file. There are python scripts av
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
-   [incvisage-vldb]: http://data-people.cs.illinois.edu/papers/incvisage-vldb.pdf
+   [incvisage-vldb]: http://data-people.cs.illinois.edu/papers/incvisage-paper.pdf
    [ewah-repo]: https://github.com/lemire/EWAHBoolArray
    [yaml-cpp]: https://github.com/jbeder/yaml-cpp
   
