@@ -41,9 +41,9 @@ For now, we IncVisage installation instructions for Linux environment only.
 		
 			option(BUILD_SHARED_LIBS "Build Shared Libraries" ON) 
 
-* Build code. Inside the /needletail-code-base folder,
+* Build code. Inside the /needletail-code-base folder using [node-gyp][nd-gyp]:
  
-            node-gyp binding.gyp
+            node-gyp configure build
             
 * Run the tool. Inside the root folder,
 
@@ -60,4 +60,5 @@ Currently, IncVisage only accepts .sdb dataset file. There are python scripts av
    [incvisage-vldb]: http://data-people.cs.illinois.edu/papers/incvisage-paper.pdf
    [ewah-repo]: https://github.com/lemire/EWAHBoolArray
    [yaml-cpp]: https://github.com/jbeder/yaml-cpp
+   [nd-gyp]: https://nodeaddons.com/c-processing-from-node-js/
   
